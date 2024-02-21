@@ -12,28 +12,49 @@ export const useGetFoodBanks = () => {
   const [foodBanks, setFoodBanks] = useState([]);
 
   const foodBankCollectionRef = collection(db, "foodBanks");
-  const { userID } = useGetUserInfo();
+  const { userID, role, location } = useGetUserInfo();
 
   const getFoodBanks = async () => {
     let unsubscribe;
     try {
-      const queryFoodBanks = query(
-        foodBankCollectionRef,
-        where("userID", "==", userID),
-      );
+      
+      if (role === "Host"){
+        const queryFoodBanks = query(
+          foodBankCollectionRef,
+          where("userID", "==", userID),
+        );
 
-      unsubscribe = onSnapshot(queryFoodBanks, (snapshot) => {
-        let docs = [];
-
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          const id = doc.id;
-
-          docs.push({ ...data, id });
+        unsubscribe = onSnapshot(queryFoodBanks, (snapshot) => {
+          let docs = [];
+  
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            const id = doc.id;
+  
+            docs.push({ ...data, id });
+          });
+  
+          setFoodBanks(docs);
         });
-
-        setFoodBanks(docs);
-      });
+      } else if (role === "Donater"){
+        const queryFoodBanks = query(
+          foodBankCollectionRef,
+          where("location", "==", location),
+        );
+        unsubscribe = onSnapshot(queryFoodBanks, (snapshot) => {
+          let docs = [];
+  
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            const id = doc.id;
+  
+            docs.push({ ...data, id });
+          });
+  
+          setFoodBanks(docs);
+        });
+      }
+      
     } catch (err) {
       console.error(err);
     }
