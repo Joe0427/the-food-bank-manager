@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { Auth } from './pages/auth/index'
-import { Profile } from "./pages/profile/index";
+import { Profile } from "./pages/profile";
 import { FoodBanksList } from "./pages/foodBanks/foodBanksList";
 import { AddFoodBank } from "./pages/foodBanks/addFoodBank";
 import { AddDonation } from "./pages/donater/addDonation";

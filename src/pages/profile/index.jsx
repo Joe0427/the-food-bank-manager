@@ -183,20 +183,6 @@ export const Profile = () => {
                 </div>
             )}
 
-            {/* For Donater */}
-            {role === "Donater" && (
-                <div>
-                    {/* Add Donater related content */}
-                </div>
-            )}
-
-            {/* For Receiver */}
-            {role === "Receiver" && (
-                <div>
-                    {/* Add Receiver related content */}
-                </div>
-            )}
-
             {role === "Host" && hostedFoodBanks.length > 0 && (
                 <div>
                     <h2>Food Banks You Are Hosting</h2>
