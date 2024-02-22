@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react";
-import {
-  query,
-  collection,
-  where,
-  onSnapshot,
-} from "firebase/firestore";
 import { db } from "../config/firebase-config";
+import { onSnapshot, collection, query, where, deleteDoc, updateDoc, doc } from "firebase/firestore";
 import { useGetUserInfo } from "./useGetUserInfo";
 
 export const useGetFoodBanks = () => {
   const [foodBanks, setFoodBanks] = useState([]);
 
   const foodBankCollectionRef = collection(db, "foodBanks");
-  const { userID, role, location } = useGetUserInfo();
+  const { userID, role } = useGetUserInfo();
+
+  const removeFoodBank = async (foodBankId) => {
+    try {
+        await deleteDoc(doc(db, "foodBanks", foodBankId));
+    } catch (error) {
+        console.error("Error removing food bank: ", error);
+    }
+  };
+
+  const updateFoodBank = async (foodBankId, updatedData) => {
+    try {
+        const foodBankRef = doc(db, "foodBanks", foodBankId);
+        await updateDoc(foodBankRef, updatedData);
+        console.log("Food bank updated successfully");
+    } catch (error) {
+        console.error("Error updating food bank: ", error);
+    }
+  };
 
   const getFoodBanks = async () => {
     let unsubscribe;
@@ -36,10 +49,9 @@ export const useGetFoodBanks = () => {
   
           setFoodBanks(docs);
         });
-      } else if (role === "Donater"){
+      } else {
         const queryFoodBanks = query(
-          foodBankCollectionRef,
-          where("location", "==", location),
+          foodBankCollectionRef
         );
         unsubscribe = onSnapshot(queryFoodBanks, (snapshot) => {
           let docs = [];
@@ -66,5 +78,5 @@ export const useGetFoodBanks = () => {
     getFoodBanks();
   }, []);
 
-  return { foodBanks };
+  return { foodBanks, removeFoodBank, updateFoodBank };
 };

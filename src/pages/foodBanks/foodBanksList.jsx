@@ -66,7 +66,7 @@ export const FoodBanksList = () => {
                                 <hr></hr>
                                 <h3> {n} </h3>
                                 <p> location: {l} </p>
-                                <button type="Submit" oncClick={setFoodBankName(n)}>Donate</button>
+                                <button type="Submit" onClick={setFoodBankName(n)}>Donate</button>
                             </div>
                             );
                         })}
