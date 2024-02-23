@@ -4,6 +4,8 @@ import {
   collection,
   where,
   onSnapshot,
+  getDoc,
+  doc
 } from "firebase/firestore";
 import { db } from "../config/firebase-config";
 import { useGetUserInfo } from "./useGetUserInfo";
@@ -68,3 +70,42 @@ export const useGetFoodBanks = () => {
 
   return { foodBanks };
 };
+
+export const useGetSpecificFoodBank = ({foodBankID}) => {
+  const [specificFoodBank, setFoodBankName] = useState([])
+
+  const specificFoodBankRef = collection(db, "foodBanks");
+
+  const getFoodBank = async () => {
+    let unsubscribe;
+    try {
+        const querySpecificFoodBank = query(
+          specificFoodBankRef,
+          where("foodBankID", "==", foodBankID),
+        );
+
+        unsubscribe = onSnapshot(querySpecificFoodBank, (snapshot) => {
+          let docs = [];
+  
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            const id = doc.id;
+  
+            docs.push({ ...data, id });
+          });
+  
+          setFoodBankName(docs);
+        });
+      } catch (err) {
+      console.error(err);
+    }
+
+    return () => unsubscribe();
+  };
+
+  useEffect(() => {
+    getFoodBank();
+  }, []);
+
+  return { specificFoodBank };
+}

@@ -17,7 +17,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/food-banks-list" element={<FoodBanksList />} />
           <Route path="/add-food-bank" element={<AddFoodBank />} />
-          <Route path="/add-donation" element={<AddDonation />} />
+          <Route path="/add-donation/:foodBankID" element={<AddDonation />} />
           <Route path="/get-my-donations" element={<GetDonations />} />
 
         </Routes>

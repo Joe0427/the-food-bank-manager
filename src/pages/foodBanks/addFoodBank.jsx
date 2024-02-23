@@ -87,7 +87,7 @@ export const AddFoodBank = () => {
                                     if (food.category === c.name) {
                                     return (
                                         <>
-                                        <li>{category}</li>
+                                        <li>{food.category}</li>
                                         <li>{food.name}</li><hr></hr>
                                         </>
                                     );

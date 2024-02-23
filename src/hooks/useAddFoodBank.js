@@ -10,15 +10,16 @@ export const useAddFoodBank = () => {
         location,
         foodAllowed
     }) => { 
-        const docRef = await addDoc(collection(db, "foodBanks"),{
-            userID, //user id is always from a user with role=host
+        const getDoc = collection(db, "foodBanks")
+        const docRef = await addDoc(getDoc,{})
+
+        await setDoc(docRef,{
+            hostID: userID, //user id is always from a user with role=host
             name,
             location,
+            foodAllowed,
             createdAt: serverTimestamp(),
-        })
-        
-        await addDoc(collection(db, "foodBanks",docRef.id,"foodAllowed"),{
-            foodAllowed
+            foodBankID: docRef.id,
         })
     }
     return { addFoodBank }; //return function that you want to write into in index

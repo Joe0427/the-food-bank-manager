@@ -1,34 +1,39 @@
 import { useGetUserInfo } from "../../hooks/useGetUserInfo"; //need user info to display on their profile
 import { useAddDonation } from "../../hooks/useAddDonation"; //use this file to add food donaters
-import { FoodBanksList } from "../foodBanks/foodBanksList";
+import { useGetSpecificFoodBank } from "../../hooks/useGetFoodBanks";
+import { useParams } from "react-router-dom";
+
 import React, { useState, useRef } from "react";
 
 export const AddDonation = () => {
 
     const { userID } = useGetUserInfo()
     const { addDonation } = useAddDonation()
-    const { whenSubmit } = FoodBanksList()
-
-    const [organizationName, setOrganizationName] = useState("");
-    const [location, setLocation] = useState("");
-    const organizationTypeRef = useRef()
-
-    const onSubmit = (e) => { 
-        /*function called when form tag in hostabilities is submitted 
-        - addFoodBank is the variable that contains data to return to useAddFoodBank file to commit to database*/
-        e.preventDefault()
-        addDonation({
-            userID, 
-            organizationName,
-            organizationType: organizationTypeRef.current.value,
-            location
-        }) //values here come from useState functionality
-    }
+    const { foodBankID } = useParams()
+    const { specificFoodBank } = useGetSpecificFoodBank({foodBankID})
 
     return (
         <div>
-            <form onSubmit={onSubmit}>
-                <h3>{whenSubmit.name}</h3>
+            <ul>
+                {specificFoodBank.map((foodBank) => {
+                    const { name, location, foodBankID, createdAt, foodAllowed } =
+                    foodBank;
+                    return (
+                    <div>
+                        <h3> {name} </h3>
+                        <p> location: {location} </p>
+                            {foodAllowed.map((food) => {
+                                const { name, category} = food;
+                                return (
+                                <>
+                                <input type="checkbox"></input><label>category:{category}, name:{name}</label><br></br>
+                                </>)
+                            })}
+                    </div>
+                    );
+                })}
+                </ul>
+            <form>
                 <button type="submit">
                     Add Donation
                 </button>
