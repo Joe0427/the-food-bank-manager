@@ -1,0 +1,52 @@
+.Sidebar {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-top: 1rem;
+    background-color: #fffff0; /* Cream */
+
+
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.logo img {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 5%;
+}
+
+.menu {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+.Welcome-class, .Recieve-class, .Foodbank-class, .Profile-class, .Donate-class 
+{
+    background: none;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition-duration: 0.5s;
+}
+
+.Welcome-class:hover, .Recieve-class:hover, .Foodbank-class:hover, .Profile-class:hover, .Donate-class:hover 
+{
+    background-color: #800080;
+    color: white;
+    cursor: pointer;
+}
+

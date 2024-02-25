@@ -1,0 +1,46 @@
+.Welcome-text {
+    text-align: center; /* Center align the text */
+    padding: 20px; /* Add some padding for spacing */
+  }
+  
+  .Welcome-text h1 {
+    font-size: 2.5rem; /* Adjust font size for the main heading */
+    color: #000000; /* Text color */
+  }
+  
+  .Welcome-text h2 {
+    font-size: 1.5rem; /* Adjust font size for the subheading */
+    color: #131313; /* Text color */
+  }
+  
+
+.Articles {
+    align-items: left;
+    display: flex;
+    flex-direction: row;
+    /*row-gap: 5rem;    for gap between articles, if needed */
+}
+
+
+.article1Link {
+    text-decoration: none; 
+    color: #333; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+
+    background-color: azure;
+  }
+  
+  .article1Link img {
+    width: 100%; 
+    max-width: 20rem; 
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+  }
+  
+  .article1Link p {
+    margin: 0; 
+    font-size: 16px; 
+    text-align: center; 
+  }
